@@ -1,0 +1,77 @@
+---
+# file: roles/common/tasks/main.yml
+
+- name: Created Project directory
+  file: path=/Users/{{ user }}/Projects state=directory
+
+- name: Clone dotfiles repository
+  git: repo=ssh://git@github.com/WesleyHilhorst/Dotfiles.git
+       dest=/Users/{{ user }}/Projects/Other/Dotfiles
+       accept_hostkey=yes
+
+- name: Symlink dotfiles
+  file: path=/Users/{{ user }}/.{{ item }}
+        src=/Users/{{ user }}/Projects/Other/Dotfiles/.{{ item }}
+        state=link
+  with_items:
+    - bash_functions
+    - bash_profile
+    - bash_profile_osx
+    - bashrc
+    - tmux.conf
+    - vim
+    - vimrc
+
+- name: Copy dotfiles
+  copy: src=/Users/{{ user }}/Projects/Other/Dotfiles/.{{ item }}
+        dest=/Users/{{ user }}/.{{ item }}
+  with_items:
+    - bash_aliases
+    - gitconfig
+
+- name: Clear menubar
+  command: defaults write com.apple.systemuiserver menuExtras -array
+
+- name: Add default menubar icons
+  command: defaults write com.apple.systemuiserver menuExtras -array-add "{{ item }}"
+  with_items:
+    - "/System/Library/CoreServices/Menu Extras/Volume.menu"
+    - "/System/Library/CoreServices/Menu Extras/VPN.menu"
+    - "/System/Library/CoreServices/Menu Extras/AirPort.menu"
+    - "/System/Library/CoreServices/Menu Extras/Battery.menu"
+    - "/System/Library/CoreServices/Menu Extras/Clock.menu"
+
+- name: Restart SystemUIServer
+  command: killall SystemUIServer
+
+- name: Show percentage for battery
+  command: defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+
+- name: Disable the "Are you sure you want to open this application?" dialog
+  command: defaults write com.apple.LaunchServices LSQuarantine -bool false
+
+- name: Disable "natural" scrolling
+  command: defaults write -g com.apple.swipescrolldirection -bool false
+
+- name: Check for software updates every day
+  command: defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
+
+- name: Set name of computer
+  command: scutil --set {{ item }} "{{ computer_name }}"
+  with_items:
+    - ComputerName
+    - HostName
+    - LocalHostName
+  become: yes
+  become_method: sudo
+
+- command: fdesetup status
+  become: yes
+  become_method: sudo
+  register: filevault_status
+
+- name: Enable FileVault at next login
+  command: fdesetup enable -user {{ user }} -keychain -defer /Users/{{ user }}/Desktop/REMOVE_AFTER_REBOOT.plist -dontaskatlogout -forceatlogin 0
+  become: yes
+  become_method: sudo
+  when: filevault_status.stdout == "FileVault is Off."

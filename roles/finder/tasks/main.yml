@@ -1,0 +1,29 @@
+---
+# file: roles/finder/tasks/main.yml
+
+- name: Default to list view in Finder
+  command: defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+
+- name: Shows path in titleBar
+  command: "defaults write com.apple.finder _FXShowPosixPathInTitle -bool true"
+
+- name: New window opens home directory
+  command: defaults write com.apple.finder NewWindowTarget -string "PfHm"
+
+- name: Show hidden files
+  command: "defaults write com.apple.finder AppleShowAllFiles -bool YES"
+
+- name: Show all filename extensions
+  command: "defaults write NSGlobalDomain AppleShowAllExtensions -bool true"
+
+- name: Show status bar
+  command: "defaults write com.apple.finder ShowStatusBar -bool true"
+
+- name: Show path bar
+  command: "defaults write com.apple.finder ShowPathbar -bool true"
+
+- name: Show small icons in Finder sidebar
+  command: "defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1"
+
+- name: Restart Finder
+  command: "killall Finder"
