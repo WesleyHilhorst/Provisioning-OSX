@@ -19,8 +19,6 @@
     - bash_profile_osx
     - bashrc
     - tmux.conf
-    - vim
-    - vimrc
 
 - name: Copy dotfiles
   copy: src=/Users/{{ user }}/Projects/Other/Dotfiles/.{{ item }}
