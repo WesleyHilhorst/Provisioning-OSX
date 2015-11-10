@@ -26,3 +26,9 @@
     - hipchat
     - charles
     - paintcode
+    - osxfuse
+
+- name: Install NTFS-3G
+  homebrew: name={{ item }} state=latest
+  with_items:
+    - ntfs-3g

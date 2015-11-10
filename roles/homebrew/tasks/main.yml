@@ -6,6 +6,7 @@
   with_items:
     - homebrew/dupes
     - caskroom/cask
+    - homebrew/fuse
 
 - name: Update homebrew
   homebrew: name=not_an_existing_package state=absent update_homebrew=yes

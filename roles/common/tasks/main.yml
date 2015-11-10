@@ -51,6 +51,13 @@
 - name: Disable "natural" scrolling
   command: defaults write -g com.apple.swipescrolldirection -bool false
 
+- name: Enable tap to click for this user and for the login screen
+  command: "{{ item }}"
+  with_items:
+    - "defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true"
+    - "defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1"
+    - "defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1"
+
 - name: Check for software updates every day
   command: defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
