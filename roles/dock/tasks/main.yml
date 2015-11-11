@@ -29,9 +29,25 @@
   command: defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>{{ item }}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
   with_items:
     - "/Applications/System Preferences.app"
-    - "/Users/{{ user }}/Applications/Google Chrome.app"
-    - "/Users/{{ user }}/Applications/iTerm.app"
+    - "/Applications/Mail.app"
+    - "/Applications/Calendar.app"
+    - "/Applications/App Store.app"
     - "/Users/{{ user }}/Applications/Spotify.app"
+    - "/Users/{{ user }}/Applications/Google Chrome.app"
+    - "/Applications/Safari.app"
+    - "/Users/{{ user }}/Applications/Firefox.app"
+    - "/Applications/iTunes.app"
+    - "/Users/{{ user }}/Applications/Steam.app"
+    - "/Users/{{ user }}/Applications/Skype.app"
+    - "/Applications/Messages.app"
+    - "/Users/{{ user }}/Applications/Slack.app"
+    - "/Users/{{ user }}/Applications/Hipchat.app"
+    - "/Users/{{ user }}/Applications/Sublime Text 2.app"
+    - "/Applications/Xcode.app"
+    - "/Users/{{ user }}/Applications/Querious.app"
+    - "/Users/{{ user }}/Applications/Charles.app"
+    - "/Users/{{ user }}/Applications/SourceTree.app"
+    - "/Users/{{ user }}/Applications/iTerm.app"
 
 - name: Empty dock of folders
   command: defaults write com.apple.dock persistent-others -array

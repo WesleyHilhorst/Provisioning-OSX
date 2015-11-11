@@ -13,6 +13,7 @@
     - lastpass
     - paw
     - sequel-pro
+    - querious
     - skype
     - spotify
     - vagrant
@@ -26,6 +27,7 @@
     - hipchat
     - charles
     - paintcode
+    - adobe-creative-cloud
     - osxfuse
 
 - name: Install NTFS-3G
