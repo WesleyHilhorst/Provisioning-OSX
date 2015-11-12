@@ -1,4 +1,4 @@
-# provision-osx
+# Provisioning-OSX
 Provisioning details for OSX
 
 ## Before using
@@ -31,7 +31,12 @@ In the `group_vars/all.yml` file you can specify the custom values needed for so
 ## Usage
 
 ```shell
-git clone git@github.com:WesleyHilhorst/Provision-OSX.git
-cd provision-osx
+git clone git@github.com:WesleyHilhorst/Provisioning-OSX.git
+cd Provisioning-OSX
+```
+
+Make sure to edit the group_vars/all.yml before you run this:
+
+```
 ./provision.sh
 ```
